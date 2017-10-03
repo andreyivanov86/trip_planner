@@ -3,7 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
-const db = require('../models')
+const { db } = require('../models')
 
 app.use(morgan('dev'));
 
