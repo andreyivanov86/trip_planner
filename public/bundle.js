@@ -552,6 +552,68 @@ const map = new mapboxgl.Map({
 const marker = buildMarker("activities", fullstackCoords);
 marker.addTo(map);
 
+fetch('/api/attractions')
+.then(result => result.json())
+.then(data => {
+  //console.log(data)
+  let hotels = data[0];
+  let hotelSelect = document.getElementById("hotels-choices");
+  hotels.forEach( hotel => {
+    let option = document.createElement('option');
+    option.text = hotel.name;
+    option.value = hotel.name;
+    hotelSelect.add(option);
+  });
+  let activities = data[1];
+  let activitySelect = document.getElementById("activities-choices");
+  activities.forEach( activity => {
+    let option = document.createElement('option');
+    option.text = activity.name;
+    option.value = activity.name;
+    activitySelect.add(option);
+  });
+  let restaurants = data[2];
+  let restaurantSelect = document.getElementById("restaurants-choices");
+  restaurants.forEach( restaurant => {
+    let option = document.createElement('option');
+    option.text = restaurant.name;
+    option.value = restaurant.name;
+    restaurantSelect.add(option);
+  });
+})
+.catch(console.error);
+
+document.getElementById('hotels-add').addEventListener('click', (event) => {
+  let select = document.getElementById('hotels-choices');
+  let selectedId = select.value;
+  let newHotel = document.createElement('li');
+  newHotel.innerHTML = selectedId;
+  let hotelList = document.getElementById('hotels-list')
+  hotelList.append(newHotel);
+  console.log(selectedId)
+})
+
+document.getElementById('activities-add').addEventListener('click', (event) => {
+  let select = document.getElementById('activities-choices');
+  let selectedId = select.value;
+  let newActivity = document.createElement('li');
+  newActivity.innerHTML = selectedId;
+  let activitiesList = document.getElementById('activities-list')
+  activitiesList.append(newActivity);
+  console.log(selectedId)
+})
+
+
+document.getElementById('restaurants-add').addEventListener('click', (event) => {
+  let select = document.getElementById('restaurants-choices');
+  let selectedId = select.value;
+  let newRestaurant = document.createElement('li');
+  newRestaurant.innerHTML = selectedId;
+  let activityList = document.getElementById('restaurants-list')
+  activityList.append(newRestaurant);
+  console.log(selectedId)
+})
+
 
 /***/ }),
 /* 2 */
