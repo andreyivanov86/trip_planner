@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
 const { db } = require('../models')
+const router = require('../routes');
 
 app.use(morgan('dev'));
 
@@ -11,6 +12,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../public')))
+
+app.use(router);
 
 // catch 404 (i.e., no route was hit) and forward to error handler
 app.use(function(req, res, next) {
@@ -30,7 +33,7 @@ app.use(function(err, req, res, next) {
 
 app.listen(3000, () => {
   console.log('listening on 3000 ...');
-  db.sync()
+  db.sync({force: false})
     .then(() => {
       console.log('Synchronated the database')
     })
