@@ -20,21 +20,18 @@
         <div>
           <h2>Hotels</h2>
           <select id="hotels-choices">
-            <option>An Hotel</option>
           </select>
           <button id="hotels-add" class="options-btn">+</button>
         </div>
         <div>
           <h2>Restaurants</h2>
           <select id="restaurants-choices">
-            <option>A Restaurant</option>
           </select>
           <button id="restaurants-add" class="options-btn">+</button>
         </div>
         <div>
           <h2>Activities</h2>
           <select id="activities-choices">
-            <option>An Activity</option>
           </select>
           <button id="activities-add" class="options-btn">+</button>
         </div>
@@ -66,7 +63,33 @@
     window.addEventListener('load', event => {
       fetch('/api/attractions')
         .then(result => result.json())
-        .then(data => console.log(data))
+        .then(data => {
+          console.log(data)
+          let hotels = data[0];
+          let hotelSelect = document.getElementById("hotels-choices");
+          hotels.forEach( hotel => {
+            let option = document.createElement('option');
+            option.text = hotel.name;
+            option.value = hotel.id;
+            hotelSelect.add(option);
+          });
+          let activities = data[1];
+          let activitySelect = document.getElementById("activities-choices");
+          activities.forEach( activity => {
+            let option = document.createElement('option');
+            option.text = activity.name;
+            option.value = activity.id;
+            activitySelect.add(option);
+          });
+          let restaurants = data[2];
+          let restaurantSelect = document.getElementById("restaurants-choices");
+          restaurants.forEach( restaurant => {
+            let option = document.createElement('option');
+            option.text = restaurant.name;
+            option.value = restaurant.id;
+            restaurantSelect.add(option);
+          });
+        })
         .catch(console.error);
     })
   </script>
